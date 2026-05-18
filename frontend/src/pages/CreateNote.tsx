@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import colorsPreview from "../components/ColorsPreview"
 import { toast } from "react-toastify";
 import "../../node_modules/react-toastify/dist/ReactToastify.css"
-import axios from "axios";
+import api from "../lib/axios";
 
 const CreateNote = () => {
     const [title, setTitle] = useState("");
@@ -23,8 +23,7 @@ const CreateNote = () => {
 
       setIsSaving(true);
       try {
-        const api = import.meta.env.VITE_API_URL
-        await axios.post(`${api}/api/notemaker`, {
+        await api.post(`/api/notemaker`, {
           title: title.trim(),
           content: content.trim(),
           color: color

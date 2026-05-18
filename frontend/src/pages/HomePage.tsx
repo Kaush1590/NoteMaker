@@ -3,7 +3,7 @@ import Card from "../components/Card";
 import type { Notes } from "../components/Notes";
 import colorsPreview from "../components/ColorsPreview";
 import { RefreshCcw } from "lucide-react";
-import axios from "axios";
+import api from "../lib/axios";
 
 const HomePage = () => {
     const [notes, setNotes] = useState<Notes[]>([]);
@@ -16,8 +16,7 @@ const HomePage = () => {
         setLoading(true);
         setError(null);
         try {
-            const api = import.meta.env.VITE_API_URL
-            const res = await axios.get(`${api}/api/notemaker`, {timeout:5000});
+            const res = await api.get(`/api/notemaker`, {timeout:5000});
             setNotes(res.data || []);
         } catch (err) {
             console.error(err);
@@ -42,8 +41,7 @@ const HomePage = () => {
 
     const handleDelete = async (id: string) => {
         try {
-            const api = import.meta.env.VITE_API_URL
-            await axios.delete(`${api}/api/notemaker/${id}`, {timeout:5000});
+            await api.delete(`/api/notemaker/${id}`, {timeout:5000});
             setNotes(prev => prev.filter(n => n._id !== id));
         } catch (err) {
             console.error(err);

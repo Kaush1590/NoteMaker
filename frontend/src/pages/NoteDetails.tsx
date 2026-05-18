@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
 import colorsPreview from "../components/ColorsPreview";
 import type { Notes } from "../components/Notes";
 import { useParams, Link } from "react-router";
 import { ArrowLeft, Save } from "lucide-react";
+import api from "../lib/axios";
 
 const NoteDetails = () => {
   const [note, setNote] = useState<Notes | null>(null);
@@ -18,8 +18,7 @@ const NoteDetails = () => {
     setLoading(true);
     setError(null);
     try {
-      const api = import.meta.env.VITE_API_URL
-      const res = await axios.get(`${api}/api/notemaker/${id}`, { timeout: 5000 });
+      const res = await api.get(`/api/notemaker/${id}`, { timeout: 5000 });
       setNote(res.data);
     } catch (err) {
       console.error(err);
@@ -38,8 +37,7 @@ const NoteDetails = () => {
     setIsSaving(true);
     setError(null);
     try {
-      const api = import.meta.env.VITE_API_URL
-      await axios.put(`${api}/api/notemaker/${note._id}`, {
+      await api.put(`/api/notemaker/${note._id}`, {
         title: note.title,
         content: note.content,
         color: note.color,
