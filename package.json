@@ -1,0 +1,15 @@
+{
+  "name": "notemaker",
+  "version": "1.0.0",
+  "description": "Note making application written in MERN stack",
+  "license": "MIT",
+  "author": "Kaushik Karmakar",
+  "main": "index.js",
+  "scripts": {
+    "build": "npm install --prefix backend && npm install --prefix frontend && npm run build --prefix frontend",
+    "start": "concurrently \"npm run start --prefix backend\" \"npm run dev --prefix frontend\""
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1"
+  }
+}
